@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Aug 30, 2016 at 02:52 AM
+-- Generation Time: Aug 30, 2016 at 02:56 AM
 -- Server version: 10.1.13-MariaDB-cll-lve
 -- PHP Version: 5.4.31
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `object_model` varchar(100) DEFAULT '',
   `object_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `activity`
@@ -54,7 +54,8 @@ INSERT INTO `activity` (`id`, `class`, `module`, `object_model`, `object_id`) VA
 (12, 'humhub\\modules\\comment\\activities\\NewComment', 'comment', 'humhub\\modules\\comment\\models\\Comment', 3),
 (13, 'humhub\\modules\\polls\\activities\\NewVote', 'polls', 'humhub\\modules\\polls\\models\\Poll', 1),
 (14, 'humhub\\modules\\comment\\activities\\NewComment', 'comment', 'humhub\\modules\\comment\\models\\Comment', 4),
-(15, 'humhub\\modules\\space\\activities\\MemberAdded', 'space', 'humhub\\modules\\space\\models\\Space', 1);
+(15, 'humhub\\modules\\space\\activities\\MemberAdded', 'space', 'humhub\\modules\\space\\models\\Space', 1),
+(16, 'humhub\\modules\\content\\activities\\ContentCreated', 'content', 'humhub\\modules\\post\\models\\Post', 3);
 
 -- --------------------------------------------------------
 
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   KEY `fk-contentcontainer` (`contentcontainer_id`),
   KEY `fk-create-user` (`created_by`),
   KEY `fk-update-user` (`updated_by`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `content`
@@ -133,7 +134,9 @@ INSERT INTO `content` (`id`, `guid`, `object_model`, `object_id`, `visibility`, 
 (15, '83d2bc23-b1ad-417e-9638-6a127786ef07', 'humhub\\modules\\activity\\models\\Activity', 12, 0, 0, '0', '2016-08-27 10:02:22', 2, '2016-08-27 10:02:22', 2, 2),
 (16, '855eba4a-6eac-480d-8e40-066de670c1bd', 'humhub\\modules\\activity\\models\\Activity', 13, 0, 0, '0', '2016-08-27 10:02:22', 3, '2016-08-27 10:02:22', 3, 2),
 (17, 'f819ba6d-e0a5-43e9-8d7a-b36d18b4a4d1', 'humhub\\modules\\activity\\models\\Activity', 14, 0, 0, '0', '2016-08-27 10:02:22', 3, '2016-08-27 10:02:22', 3, 2),
-(18, '7e101e17-84f7-49fd-a678-52a62e7a65cf', 'humhub\\modules\\activity\\models\\Activity', 15, 0, 0, '0', '2016-08-27 10:39:47', 4, '2016-08-27 10:39:47', NULL, 2);
+(18, '7e101e17-84f7-49fd-a678-52a62e7a65cf', 'humhub\\modules\\activity\\models\\Activity', 15, 0, 0, '0', '2016-08-27 10:39:47', 4, '2016-08-27 10:39:47', NULL, 2),
+(19, '03abf578-23f1-4d59-8fdf-8f7fe2ad36af', 'humhub\\modules\\post\\models\\Post', 3, 1, 0, '0', '2016-08-30 02:55:36', 4, '2016-08-30 02:55:36', 4, 5),
+(20, '364ee701-dc66-4c0c-a3bf-f7d92ac84d03', 'humhub\\modules\\activity\\models\\Activity', 16, 1, 0, '0', '2016-08-30 02:55:36', 4, '2016-08-30 02:55:36', 4, 5);
 
 -- --------------------------------------------------------
 
@@ -661,7 +664,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `post`
@@ -669,7 +672,8 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 INSERT INTO `post` (`id`, `message_2trash`, `message`, `url`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
 (1, NULL, 'Yay! I''ve just installed HumHub ;Cool;', NULL, '2016-08-27 10:02:17', 1, '2016-08-27 10:02:17', 1),
-(2, NULL, 'We''re looking for great slogans of famous brands. Maybe you can come up with some samples?', NULL, '2016-08-27 10:02:22', 1, '2016-08-27 10:02:22', 1);
+(2, NULL, 'We''re looking for great slogans of famous brands. Maybe you can come up with some samples?', NULL, '2016-08-27 10:02:22', 1, '2016-08-27 10:02:22', 1),
+(3, NULL, 'This is me and posting this for testing purpose\r\n', NULL, '2016-08-30 02:55:36', 4, '2016-08-30 02:55:36', 4);
 
 -- --------------------------------------------------------
 
@@ -1027,7 +1031,7 @@ INSERT INTO `user` (`id`, `guid`, `wall_id`, `status`, `username`, `email`, `aut
 (1, 'a94b0e0d-f5e1-402f-a597-5d440e318a56', 1, 1, 'Admin', 'admin@admin.com', 'local', 'Administration, Support, HumHub', '', '2016-08-27 10:02:17', '2016-08-27 10:02:17', NULL, '2016-08-27 10:02:17', NULL, NULL, 1, NULL, 1),
 (2, 'b4acf66e-e1fc-4c08-a940-cb9e51c0b3fd', 3, 1, 'david1986', 'david.roberts@example.com', 'local', 'Microsoft Office, Marketing, SEM, Digital Native', '', '2016-08-27 10:02:22', '2016-08-27 10:02:22', 1, '2016-08-27 10:02:22', 1, NULL, 1, NULL, 3),
 (3, '7f466e6c-60e4-4631-8309-b7351d80dbbd', 4, 1, 'sara1989', 'sara.schuster@example.com', 'local', 'Yoga, Travel, English, German, French', '', '2016-08-27 10:02:22', '2016-08-27 10:02:22', 1, '2016-08-27 10:02:22', 1, NULL, 1, NULL, 4),
-(4, 'a35019ee-76a4-466b-92b2-3238a9e7d1ee', 5, 1, 'usama11', 'usamaabdullah11@hotmail.com', 'local', NULL, 'en-US', '2016-08-27 10:39:47', '2016-08-27 10:39:47', NULL, '2016-08-27 10:39:47', NULL, '2016-08-27 11:35:27', 1, 'America/New_York', 5);
+(4, 'a35019ee-76a4-466b-92b2-3238a9e7d1ee', 5, 1, 'usama11', 'usamaabdullah11@hotmail.com', 'local', NULL, 'en-US', '2016-08-27 10:39:47', '2016-08-27 10:39:47', NULL, '2016-08-27 10:39:47', NULL, '2016-08-30 02:55:10', 1, 'America/New_York', 5);
 
 -- --------------------------------------------------------
 
@@ -1059,7 +1063,7 @@ CREATE TABLE IF NOT EXISTS `user_follow` (
   PRIMARY KEY (`id`),
   KEY `index_user` (`user_id`),
   KEY `index_object` (`object_model`,`object_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `user_follow`
@@ -1072,7 +1076,8 @@ INSERT INTO `user_follow` (`id`, `object_model`, `object_id`, `user_id`, `send_n
 (4, 'humhub\\modules\\post\\models\\Post', 2, 3, 1),
 (5, 'humhub\\modules\\polls\\models\\Poll', 1, 1, 1),
 (6, 'humhub\\modules\\polls\\models\\Poll', 1, 2, 1),
-(7, 'humhub\\modules\\polls\\models\\Poll', 1, 3, 1);
+(7, 'humhub\\modules\\polls\\models\\Poll', 1, 3, 1),
+(8, 'humhub\\modules\\post\\models\\Post', 3, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -1111,6 +1116,7 @@ CREATE TABLE IF NOT EXISTS `user_http_session` (
 INSERT INTO `user_http_session` (`id`, `expire`, `user_id`, `data`) VALUES
 ('qnolaabcoe9c8muednbihkh9t2', 1472317224, NULL, 0x5f5f666c6173687c613a303a7b7d),
 ('bghkahf9r4hdldba71li358dc2', 1472310639, NULL, 0x5f5f666c6173687c613a303a7b7d),
+('tu65jpkja34p9s1q6djfene9h0', 1472541623, 4, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a343b63757272656e7441757468436c69656e7449647c733a353a226c6f63616c223b),
 ('ofmqveft6jj0k6pi5vs12fvi50', 1472313583, NULL, 0x5f5f666c6173687c613a303a7b7d);
 
 -- --------------------------------------------------------
@@ -1263,7 +1269,7 @@ CREATE TABLE IF NOT EXISTS `wall_entry` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `wall_entry`
@@ -1287,7 +1293,9 @@ INSERT INTO `wall_entry` (`id`, `wall_id`, `content_id`, `created_at`, `created_
 (15, 2, 15, '2016-08-27 10:02:22', 2, '2016-08-27 10:02:22', 2),
 (16, 2, 16, '2016-08-27 10:02:22', 3, '2016-08-27 10:02:22', 3),
 (17, 2, 17, '2016-08-27 10:02:22', 3, '2016-08-27 10:02:22', 3),
-(18, 2, 18, '2016-08-27 10:39:47', NULL, '2016-08-27 10:39:47', NULL);
+(18, 2, 18, '2016-08-27 10:39:47', NULL, '2016-08-27 10:39:47', NULL),
+(19, 5, 20, '2016-08-30 02:55:36', 4, '2016-08-30 02:55:36', 4),
+(20, 5, 19, '2016-08-30 02:55:36', 4, '2016-08-30 02:55:36', 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
